@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}
+Hangarin - Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <h1>Dashboard</h1>
+
+    <p class="text-muted">
+        Welcome to Hangarin. Manage your tasks and to-do items.
+    </p>
+
+</div>
+
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    Total Tasks
+                </h5>
+
+                <h2>
+                    {{ task_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    Total Notes
+                </h5>
+
+                <h2>
+                    {{ note_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    Total Subtasks
+                </h5>
+
+                <h2>
+                    {{ subtask_count }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow-sm">
+
+    <div class="card-header">
+
+        <h5 class="mb-0">
+            Recent Tasks
+        </h5>
+
+    </div>
+
+
+    <div class="card-body">
+
+        {% if tasks %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+                        <th>Task</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Category</th>
+                        <th>Deadline</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for task in tasks %}
+
+                    <tr>
+
+                        <td>
+                            {{ task.title }}
+                        </td>
+
+                        <td>
+                            {{ task.status }}
+                        </td>
+
+                        <td>
+                            {{ task.priority }}
+                        </td>
+
+                        <td>
+                            {{ task.category }}
+                        </td>
+
+                        <td>
+                            {{ task.deadline }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <p class="text-muted mb-0">
+            No tasks available.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
