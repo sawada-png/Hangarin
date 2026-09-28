@@ -1,0 +1,232 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Hangarin</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            min-height: 100vh;
+            background: #f5f7fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            width: 58px;
+            height: 58px;
+            background: #212529;
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .subtitle {
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            height: 48px;
+            border-radius: 10px;
+        }
+
+        .login-btn,
+        .social-btn {
+            height: 50px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #adb5bd;
+            margin: 25px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dee2e6;
+        }
+
+        .signup-text {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .signup-link {
+            color: #212529;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+
+        .errorlist {
+            color: #dc3545;
+            font-size: 14px;
+            padding-left: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container px-3">
+
+    <div class="login-card mx-auto">
+
+        <div class="text-center">
+
+            <div class="logo">
+                H
+            </div>
+
+            <h1 class="title">
+                Welcome to Hangarin
+            </h1>
+
+            <p class="subtitle">
+                Sign in to manage your tasks
+            </p>
+
+        </div>
+
+        <form method="post" action="{% url 'account_login' %}">
+
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+
+                <label class="form-label fw-semibold">
+                    Username
+                </label>
+
+                {{ form.login }}
+
+                {{ form.login.errors }}
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label fw-semibold">
+                    Password
+                </label>
+
+                {{ form.password }}
+
+                {{ form.password.errors }}
+
+            </div>
+
+            {% if redirect_field_value %}
+
+                <input
+                    type="hidden"
+                    name="{{ redirect_field_name }}"
+                    value="{{ redirect_field_value }}"
+                >
+
+            {% endif %}
+
+            <button
+                type="submit"
+                class="btn btn-dark w-100 login-btn"
+            >
+                Sign In
+            </button>
+
+        </form>
+
+        <div class="divider">
+            OR
+        </div>
+
+        <div class="d-grid gap-2">
+
+            <a
+                href="{% provider_login_url 'google' %}"
+                class="btn btn-outline-dark social-btn"
+            >
+                G&nbsp;&nbsp; Continue with Google
+            </a>
+
+            <a
+                href="{% provider_login_url 'github' %}"
+                class="btn btn-dark social-btn"
+            >
+                GitHub&nbsp;&nbsp; Continue with GitHub
+            </a>
+
+        </div>
+
+        <div class="signup-text text-center">
+
+            Don't have a Hangarin account?
+
+            <a
+                href="{% url 'account_signup' %}"
+                class="signup-link"
+            >
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
